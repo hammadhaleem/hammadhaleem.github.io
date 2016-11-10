@@ -332,9 +332,9 @@
 
 				camera.lookAt(scene.position);
 
-				ball.position.x = Math.sin(time/200)*4;
-				ball.position.y = Math.cos(time/200)*4;
-				ball.position.z = Math.sin(time/100)*3;
+				ball.position.x = Math.sin(time/2000)*4;
+				ball.position.y = Math.cos(time/2000)*4;
+				ball.position.z = Math.sin(time/1000)*3;
 
 				ball2.position.x = Math.cos(time/2000)*4;
 				ball2.position.y = Math.sin(time/1800)*4;
@@ -343,7 +343,6 @@
 
 				con.rotation.x += 0.01;
 		        con.rotation.y += 0.02;
-		        con.rotation.z += 0.03
 
 
 				if (uniforms) {
