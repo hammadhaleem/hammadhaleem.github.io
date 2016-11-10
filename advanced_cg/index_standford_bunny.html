@@ -341,6 +341,11 @@
 				ball2.position.z = Math.sin(time/800)*3;
 
 
+				con.rotation.x += 0.01;
+		        con.rotation.y += 0.02;
+		        con.rotation.z += 0.03
+
+
 				if (uniforms) {
 					uniforms.globalTime.value += delta * 0.00005;
 					uniforms.effector.value = ball.position;
