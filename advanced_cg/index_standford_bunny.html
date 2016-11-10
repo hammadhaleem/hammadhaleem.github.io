@@ -332,18 +332,21 @@
 
 				camera.lookAt(scene.position);
 
+				/* ball 2 rotation */
 				ball.position.x = Math.sin(time/2000)*4;
 				ball.position.y = Math.cos(time/2000)*4;
 				ball.position.z = Math.sin(time/1000)*3;
 
+				/*ball 1 rotation */
 				ball2.position.x = Math.cos(time/2000)*4;
 				ball2.position.y = Math.sin(time/1800)*4;
 				ball2.position.z = Math.sin(time/800)*3;
 
-
+				/* Mesh rotation */
 				con.rotation.x += 0.01;
 		        con.rotation.y += 0.02;
-
+		        con.rotation.z += 0.02;
+		        console.log(oldTime)
 
 				if (uniforms) {
 					uniforms.globalTime.value += delta * 0.00005;
