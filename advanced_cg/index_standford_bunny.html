@@ -203,15 +203,13 @@
 					lightDistance: { type: "f", value: 5.0 },
 
 				};
-/*
 
-vertexShader:   document.getElementById( 'vertexshader' ).textContent,
-*/
 				var material = new THREE.ShaderMaterial( {
 
 					uniforms: 		uniforms,
 					attributes:     attributes,
 					wireframe: 		false,
+					vertexShader:   document.getElementById( 'vertexshader' ).textContent,
 					fragmentShader: document.getElementById( 'fragmentshader' ).textContent,
 					shading: 		THREE.FlatShading,
 
