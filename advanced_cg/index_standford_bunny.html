@@ -1,0 +1,393 @@
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<title>Stanford Bunny</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<link rel="stylesheet" type="text/css" href="../css/style_no_stats.css">
+		<style type="text/css">
+			body {
+				background:#000000;
+			}
+		</style>
+	</head>
+
+	<body>
+
+		<div id="infobutton">
+			<a href="javascript:toggleInfo()"><img src="../general/i.png" border="0"></a>
+		</div>
+		<div id="info">
+				<B>Stanford Bunny - WebGL(html5)</B>
+				<P>A test of "exploding" a geometry where each face is turned into a volumetric "particle".<BR>
+				Using the famous Stanford bunny.</P>
+				Done using <a href="https://github.com/mrdoob/three.js" target="_blank">three.js</a>.
+				<P><B>Note.</B> You need a modern browser that supports WebGL for this to run the way it is intended.<BR>
+				For example. <a href="http://www.google.com/landing/chrome/beta/" target="_blank">Google Chrome 9+</a> or <a href="http://www.mozilla.com/firefox/beta/" target="_blank">Firefox 4+</a>.<BR><BR>(If you are already using one of those browsers and it's still not running, it's possible that you<BR>have old blacklisted GPU drivers. Try updating the drivers for your graphic card.<BR>Or try to set a '--ignore-gpu-blacklist' switch for the browser.)</P>
+				<font color="#777777">(C) OutsideOfSociety 2013.
+		</div>
+
+		<script src="../build_r58/three.min.js"></script>
+
+		<script type="text/javascript" src="../general/THREEx.WindowResize.js"></script>
+		<script type="text/javascript" src="../general/info.js"></script>
+
+
+		<script type="x-shader/x-vertex" id="vertexshader">
+
+			attribute float time;
+			attribute vec3 customColor;
+			uniform vec3 effector;
+			uniform vec3 effector2;
+			uniform float globalTime;
+			attribute float seed;
+			attribute vec3 normals;
+
+			varying vec3 vColor;
+			varying vec3 vNormal;
+
+			uniform float lightDistance;
+			varying vec3 light0Color;
+			varying vec3 light1Color;
+
+			void main() {
+
+				vColor = customColor;
+				vNormal = normal;
+
+				// time
+				float localTime = time + globalTime;
+				float modTime = mod( localTime, 1.0 );
+				float accTime = modTime * modTime;
+
+					vec3 dif = position - effector;
+
+					float distance = dif.x * dif.x + dif.y * dif.y + dif.z * dif.z;
+
+					float invDistance = max(0.0, 20.0-distance) / 15.0;
+
+					vec3 dif2 = position - effector2;
+
+					float distance2 = dif2.x * dif2.x + dif2.y * dif2.y + dif2.z * dif2.z;
+
+					float invDistance2 = max(0.0, 20.0-distance2) / 15.0;
+
+				vec3 animated = position;
+
+				float s = abs( sin((localTime*50.0)+seed)*0.1 )+invDistance+invDistance2;
+
+				animated +=  normals*s;
+
+
+				vec4 mvPosition = modelViewMatrix * vec4( animated, 1.0 );
+
+				gl_Position = projectionMatrix * mvPosition;
+
+
+				// light 0
+				vec3 transformedNormal = normalize(mvPosition.xyz);
+
+				light0Color = vec3(0.7,0.7,0.7);
+
+				vec4 lPosition = viewMatrix * vec4( effector, 1.0 );
+				vec3 lVector = lPosition.xyz - mvPosition.xyz;
+
+				float lDistance = 1.0;
+				lDistance = 1.0 - min( ( length( lVector ) / lightDistance ), 1.0 );
+
+				light0Color += vec3(2.0,1.0,2.0) * lDistance;
+
+
+				// light 1
+				vec3 transformedNormal1 = normalize(mvPosition.xyz);
+
+				light1Color = vec3(0.7,0.7,0.7);
+
+				vec4 lPosition1 = viewMatrix * vec4( effector2, 1.0 );
+				vec3 lVector1 = lPosition1.xyz - mvPosition.xyz;
+
+				float lDistance1 = 1.0;
+				lDistance1 = 1.0 - min( ( length( lVector1 ) / lightDistance ), 1.0 );
+
+				light1Color += vec3(2.0,1.0,2.0) * lDistance1;
+
+			}
+
+		</script>
+
+		<script type="x-shader/x-fragment" id="fragmentshader">
+
+			uniform vec3 color;
+			uniform vec3 light;
+
+			varying vec3 vColor;
+			varying vec3 vNormal;
+
+			varying vec3 light0Color;
+			varying vec3 light1Color;
+
+			void main() {
+
+				float depth = gl_FragCoord.z / gl_FragCoord.w;
+				float near = 12.0;
+				float far = 23.0;
+				float depthcolor = 1.0 - smoothstep( near, far, depth );
+
+				vec3 l = light;
+				l = normalize(l);
+				float d0 = max(0.25,dot(vNormal, l));
+
+				gl_FragColor = vec4( color * vColor.xyz * d0 * light0Color * light1Color * depthcolor, 1.0 );
+
+			}
+
+		</script>
+
+		<script>
+
+			var container;
+
+			var camera, scene, renderer;
+
+			var has_gl = false;
+
+			var delta;
+			var time;
+			var oldTime;
+
+			var con;
+
+			var ball;
+			var ball2;
+
+			var attributes;
+			var uniforms;
+
+			init();
+			animate();
+
+			function init() {
+
+				container = document.createElement( 'div' );
+				document.body.appendChild( container );
+
+				scene = new THREE.Scene();
+
+				camera = new THREE.PerspectiveCamera( 50, window.innerWidth / window.innerHeight, 1, 100000 );
+				camera.position.z = 20;
+				camera.lookAt(scene.position);
+				scene.add( camera );
+
+				con = new THREE.Object3D();
+				scene.add(con);
+
+				// balls
+				var ballImage = THREE.ImageUtils.loadTexture( "bob.png" );
+				var ballMaterial = new THREE.SpriteMaterial( { color: 0xff66ff, map: ballImage, useScreenCoordinates: false, blending: THREE.NormalBlending } );
+				ball = new THREE.Sprite( ballMaterial );
+				ball.scale.set(0.7,0.7,0);
+				con.add(ball);
+
+				ball2 = new THREE.Sprite( ballMaterial );
+				ball2.scale.set(0.7,0.7,0);
+				con.add(ball2);
+
+				var loader = new THREE.JSONLoader();
+				loader.load("models/bunny.js", modelLoaded );
+
+				try {
+					// renderer
+					renderer = new THREE.WebGLRenderer({antialias: true});
+					renderer.setSize( window.innerWidth, window.innerHeight );
+					THREEx.WindowResize(renderer, camera);
+
+					container.appendChild( renderer.domElement );
+					has_gl = true;
+				}
+				catch (e) {
+					// need webgl
+					document.getElementById('info').innerHTML = "<P><BR><B>Note.</B> You need a modern browser that supports WebGL for this to run the way it is intended.<BR>For example. <a href='http://www.google.com/landing/chrome/beta/' target='_blank'>Google Chrome 9+</a> or <a href='http://www.mozilla.com/firefox/beta/' target='_blank'>Firefox 4+</a>.<BR><BR>If you are already using one of those browsers and still see this message, it's possible that you<BR>have old blacklisted GPU drivers. Try updating the drivers for your graphic card.<BR>Or try to set a '--ignore-gpu-blacklist' switch for the browser.</P><CENTER><BR><img src='../general/WebGL_logo.png' border='0'></CENTER>";
+					document.getElementById('info').style.display = "block";
+					return;
+				}
+
+			}
+
+			function modelLoaded (ico) {
+
+
+				attributes = {
+
+					customColor: { type: 'c', value: [] },
+					time:		 { type: 'f', value: [] },
+					seed:		 { type: 'f', value: [] },
+					normals: { type: 'v3', value: [] },
+
+				};
+
+				uniforms = {
+
+					color:      { type: "c", value: new THREE.Color( 0xffffff ) },
+					globalTime:	{ type: "f", value: 0.0 },
+					light: 		{ type: "v3", value: new THREE.Vector3( 0.0, 1.0, 0.2 ) },
+					effector: 	{ type: "v3", value: new THREE.Vector3( 0.0, 0.0, 0.0 ) },
+					effector2: 	{ type: "v3", value: new THREE.Vector3( 0.0, 0.0, 0.0 ) },
+					lightDistance: { type: "f", value: 5.0 },
+
+				};
+
+				var material = new THREE.ShaderMaterial( {
+
+					uniforms: 		uniforms,
+					attributes:     attributes,
+					vertexShader:   document.getElementById( 'vertexshader' ).textContent,
+					fragmentShader: document.getElementById( 'fragmentshader' ).textContent,
+
+					wireframe: 		false,
+					shading: 		THREE.FlatShading,
+
+				});
+
+				var m = new THREE.MeshBasicMaterial();
+
+				var regularColor = new THREE.Color(0xffc4ef);
+				var glowColor = new THREE.Color(0xff00ba);
+
+				var majorGeometry = new THREE.Geometry();
+
+				var normalArray = [];
+				var colorArray = [];
+
+				for (var i = 0; i < ico.faces.length; i++) {
+
+					var face = ico.faces[i];
+					var vertices = ico.vertices;
+					var v0 = vertices[face.a];
+					var v1 = vertices[face.b];
+					var v2 = vertices[face.c];
+					var center = new THREE.Vector3().copy(v0).add(v1).add(v2);
+					center.divideScalar(3);
+
+
+					var tetra = new THREE.TetrahedronGeometry(1,0);
+
+					tetra.vertices[3] = v0;
+					tetra.vertices[0] = v1;
+					tetra.vertices[1] = v2;
+					tetra.vertices[2] = center;
+
+					tetra.computeFaceNormals();
+
+					var normal = tetra.faces[2].normal;
+					tetra.vertices[2] = center.add(normal.multiplyScalar(-0.8*Math.random()));
+
+					colorArray.push(regularColor);
+					colorArray.push(regularColor);
+					colorArray.push(glowColor);
+					colorArray.push(regularColor);
+
+					tetra.computeFaceNormals();
+					tetra.computeVertexNormals();
+
+					var mesh = new THREE.Mesh(tetra, m);
+
+					mesh.position = new THREE.Vector3().copy(face.centroid).multiplyScalar(0.000001);
+
+					THREE.GeometryUtils.merge(majorGeometry, mesh);
+
+					normalArray.push(normal);
+
+				}
+
+
+				// for shader
+				var vertices = majorGeometry.vertices;
+				var values_time = attributes.time.value;
+				var values_colors = attributes.customColor.value;
+				var values_seed = attributes.seed.value;
+				var values_normals = attributes.normals.value;
+
+				for( var v = 0; v < vertices.length; v+=4 ) {
+
+					var t = Math.random();
+
+					values_time[ v ] = t;
+					values_time[ v+1 ] = t;
+					values_time[ v+2 ] = t;
+					values_time[ v+3 ] = t;
+
+					values_colors[v] = colorArray[v];
+					values_colors[v+1] = colorArray[v+1];
+					values_colors[v+2] = colorArray[v+2];
+					values_colors[v+3] = colorArray[v+3];
+
+					var s = Math.random();
+					values_seed[ v ] = s;
+					values_seed[ v+1 ] = s;
+					values_seed[ v+2 ] = s;
+					values_seed[ v+3 ] = s;
+
+					var normal = normalArray[Math.floor(v/4)];
+
+					values_normals[ v ] = normal;
+					values_normals[ v+1 ] = normal;
+					values_normals[ v+2 ] = normal;
+					values_normals[ v+3 ] = normal;
+
+				}
+
+
+				var mesh = new THREE.Mesh(majorGeometry, material);
+				con.add(mesh);
+
+			}
+
+
+			function animate() {
+
+				requestAnimationFrame( animate );
+
+				render();
+
+			}
+
+			function render() {
+
+				time = Date.now();
+				delta = time - oldTime;
+				oldTime = time;
+
+				if (isNaN(delta) || delta > 1000 || delta == 0 ) {
+					delta = 1000/60;
+				}
+
+				camera.position.x = (Math.sin(time/2000)*0.3)*17;
+				camera.position.z = 17;
+
+				camera.lookAt(scene.position);
+
+				ball.position.x = Math.sin(time/2000)*4;
+				ball.position.y = Math.cos(time/2000)*4;
+				ball.position.z = Math.sin(time/1000)*3;
+
+				ball2.position.x = Math.cos(time/2000)*4;
+				ball2.position.y = Math.sin(time/1800)*4;
+				ball2.position.z = Math.sin(time/800)*3;
+
+
+				if (uniforms) {
+					uniforms.globalTime.value += delta * 0.00005;
+					uniforms.effector.value = ball.position;
+					uniforms.effector2.value = ball2.position;
+				}
+
+				if (has_gl) {
+					renderer.render( scene, camera );
+				}
+
+			}
+
+		</script>
+	</body>
+</html>
