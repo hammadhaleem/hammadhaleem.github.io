@@ -2,37 +2,14 @@
 <!doctype html>
 <html lang="en">
 	<head>
-		<title>Stanford Bunny</title>
+		<title>Stanford Bunny Simple</title>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
-		<link rel="stylesheet" type="text/css" href="../css/style_no_stats.css">
-		<style type="text/css">
-			body {
-				background:#000000;
-			}
-		</style>
 	</head>
 
 	<body>
-
-		<div id="infobutton">
-			<a href="javascript:toggleInfo()"><img src="../general/i.png" border="0"></a>
-		</div>
-		<div id="info">
-				<B>Stanford Bunny - WebGL(html5)</B>
-				<P>A test of "exploding" a geometry where each face is turned into a volumetric "particle".<BR>
-				Using the famous Stanford bunny.</P>
-				Done using <a href="https://github.com/mrdoob/three.js" target="_blank">three.js</a>.
-				<P><B>Note.</B> You need a modern browser that supports WebGL for this to run the way it is intended.<BR>
-				For example. <a href="http://www.google.com/landing/chrome/beta/" target="_blank">Google Chrome 9+</a> or <a href="http://www.mozilla.com/firefox/beta/" target="_blank">Firefox 4+</a>.<BR><BR>(If you are already using one of those browsers and it's still not running, it's possible that you<BR>have old blacklisted GPU drivers. Try updating the drivers for your graphic card.<BR>Or try to set a '--ignore-gpu-blacklist' switch for the browser.)</P>
-				<font color="#777777">(C) OutsideOfSociety 2013.
-		</div>
-
-		<script src="../build_r58/three.min.js"></script>
-
-		<script type="text/javascript" src="../general/THREEx.WindowResize.js"></script>
-		<script type="text/javascript" src="../general/info.js"></script>
-
+		<script src="js/three.min.js"></script>
+		<script type="text/javascript" src="js/windows.resize.js"></script>
 
 		<script type="x-shader/x-vertex" id="vertexshader">
 
