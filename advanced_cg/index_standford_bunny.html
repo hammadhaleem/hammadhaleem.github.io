@@ -206,13 +206,13 @@
 /*
 
 vertexShader:   document.getElementById( 'vertexshader' ).textContent,
-fragmentShader: document.getElementById( 'fragmentshader' ).textContent,
 */
 				var material = new THREE.ShaderMaterial( {
 
 					uniforms: 		uniforms,
 					attributes:     attributes,
 					wireframe: 		false,
+					fragmentShader: document.getElementById( 'fragmentshader' ).textContent,
 					shading: 		THREE.FlatShading,
 
 				});
