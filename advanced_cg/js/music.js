@@ -1,4 +1,8 @@
 
+var music_list = [
+  'http://hammadhaleem.com/advanced_cg/music/kenney_floreat_irrational.mp3',
+  'http://hammadhaleem.com/advanced_cg/music/dark_chant_master.mp3',
+];
 
 function loadAudioBuffer(url) {
     // Load asynchronously
@@ -35,5 +39,5 @@ function initAudio() {
     source.connect(analyser);
     analyser.connect(context.destination);
 
-    loadAudioBuffer("/music/kenney_floreat_irrational.mp3");
+    loadAudioBuffer(music_list[0]);
 }
