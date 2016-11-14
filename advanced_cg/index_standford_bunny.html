@@ -8,6 +8,7 @@
 		<script type="text/javascript" src="http://oos.moxiecode.com/js_webgl/build_r58/three.min.js"></script>
 		<script type="text/javascript" src="js/window.resize.js"></script>
 		<script type="text/javascript" src="js/animation.js"></script>
+		<script type="text/javascript" src="js/music.js"></script>
 	</head>
 
 	<body>
@@ -137,6 +138,7 @@
 
 			function init() {
 
+				initAudio();
 				container = document.createElement( 'div' );
 				document.body.appendChild( container );
 
@@ -183,6 +185,7 @@
 			}
 
 			function animate() {
+
 
 				requestAnimationFrame( animate );
 
