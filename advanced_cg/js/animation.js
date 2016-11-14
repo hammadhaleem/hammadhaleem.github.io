@@ -81,8 +81,8 @@ function render() {
     //     var nBarHalf = Math.ceil(nBar / 2)
         histo = sound.makeHistogram(30);
         amplitude = sound.amplitude();
-        console.log([render_counter, amplitude , histo]);
-    }
+        console.log([render_counter, amplitude , histo , Math.sin(time / 2000)]);
+
 
     /* ball 2 rotation */
     ball.position.x = Math.sin(time / 2000) * 4;
@@ -94,6 +94,7 @@ function render() {
     ball2.position.y = Math.sin(time / 1800) * 4;
     ball2.position.z = Math.sin(time / 800) * 3;
 
+    }
     if (uniforms) {
         uniforms.globalTime.value += delta * 0.00005;
         uniforms.effector.value = ball.position;
