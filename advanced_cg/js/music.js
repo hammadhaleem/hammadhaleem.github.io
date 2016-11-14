@@ -16,7 +16,7 @@ sound.load(music_list[0], function(sound){
 if (sound)
 music_is_active = true;
 
-var nBar = 41;
+nBar = 41;
 console.assert(nBar%2, "nBar MUST be a odd number.")
 
 var barW = 80/nBar;
