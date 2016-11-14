@@ -76,14 +76,14 @@ function render() {
 
     camera.lookAt(scene.position);
 
-    if (music_is_active) {
-        var nBarHalf = Math.ceil(nBar / 2)
-        var histo = sound.makeHistogram(nBarHalf);
-        var amplitude = 0;
-        // var amplitude = sound.amplitude();
-        if(delta %50 == 0 )
-        console.log(amplitude , histo);
-    }
+    // if (music_is_active) {
+    //     var nBarHalf = Math.ceil(nBar / 2)
+    //     var histo = sound.makeHistogram(nBarHalf);
+    //     var amplitude = 0;
+    //     // var amplitude = sound.amplitude();
+    //     if(delta %50 == 0 )
+    //     console.log(amplitude , histo);
+    // }
 
     /* ball 2 rotation */
     ball.position.x = Math.sin(time / 2000) * 4;
