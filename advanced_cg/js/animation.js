@@ -90,9 +90,9 @@ function render() {
     ball.position.z = amplitude * 3;
 
     /*ball 1 rotation */
-    ball2.position.x = Math.cos(time / 2000) * 4;
-    ball2.position.y = Math.sin(time / 1800) * 4;
-    ball2.position.z = Math.sin(time / 800) * 3;
+    ball2.position.x = amplitude * 4;
+    ball2.position.y = amplitude * 4;
+    ball2.position.z = amplitude * 3;
 
     }
     if (uniforms) {
