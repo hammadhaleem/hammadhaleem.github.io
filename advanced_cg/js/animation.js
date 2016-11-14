@@ -85,9 +85,9 @@ function render() {
 
 
     /* ball 2 rotation */
-    ball.position.x = (amplitude + Math.cos(time / 2000)) * 4;
-    ball.position.y = (amplitude + Math.cos(time / 2000)) * 4;
-    ball.position.z = (amplitude + Math.cos(time / 2000)) * 3;
+    ball.position.x = (amplitude + Math.sin(time / 2000)) * 4;
+    ball.position.y = (amplitude + Math.sin(time / 2000)) * 4;
+    ball.position.z = (amplitude + Math.sin(time / 2000)) * 3;
 
     /*ball 1 rotation */
     ball2.position.x = (amplitude + Math.cos(time / 2000)) * 4;
