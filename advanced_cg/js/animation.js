@@ -79,8 +79,8 @@ function render() {
 
     if (music_is_active && render_counter % 3 == 2) {
     //     var nBarHalf = Math.ceil(nBar / 2)
-    //     var histo = sound.makeHistogram(nBarHalf);
-        var amplitude = sound.amplitude();
+        histo = sound.makeHistogram(30);
+        amplitude = sound.amplitude();
         console.log([delta, amplitude , histo]);
     }
 
