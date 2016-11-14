@@ -75,13 +75,12 @@ function render() {
     camera.position.z = 17;
 
     camera.lookAt(scene.position);
-    console.log(delta);
-    
-    if (music_is_active && delta % 10 == 1) {
+
+    if (music_is_active && delta % 5 == 1) {
         var nBarHalf = Math.ceil(nBar / 2)
         var histo = sound.makeHistogram(nBarHalf);
         var amplitude = sound.amplitude();
-        console.log(amplitude , histo);
+        console.log((delta, amplitude , histo));
     }
 
     /* ball 2 rotation */
