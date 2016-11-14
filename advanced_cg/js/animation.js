@@ -85,14 +85,14 @@ function render() {
 
 
     /* ball 2 rotation */
-    ball.position.x = amplitude * 4;
-    ball.position.y = amplitude * 4;
-    ball.position.z = amplitude * 3;
+    ball.position.x = (amplitude + Math.cos(time / 2000)) * 4;
+    ball.position.y = (amplitude + Math.cos(time / 2000)) * 4;
+    ball.position.z = (amplitude + Math.cos(time / 2000)) * 3;
 
     /*ball 1 rotation */
-    ball2.position.x = amplitude * 4;
-    ball2.position.y = amplitude * 4;
-    ball2.position.z = amplitude * 3;
+    ball2.position.x = (amplitude + Math.cos(time / 2000)) * 4;
+    ball2.position.y = (amplitude + Math.cos(time / 2000)) * 4;
+    ball2.position.z = (amplitude + Math.cos(time / 2000)) * 3;
 
     }
     if (uniforms) {
