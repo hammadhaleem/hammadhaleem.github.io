@@ -80,8 +80,7 @@ function render() {
         var nBarHalf = Math.ceil(nBar / 2)
         var histo = sound.makeHistogram(nBarHalf);
         var amplitude = 0;
-    //     // var amplitude = sound.amplitude();
-    //     if(delta %50 == 0 )
+        var amplitude = sound.amplitude();
         console.log(amplitude , histo);
     }
 
