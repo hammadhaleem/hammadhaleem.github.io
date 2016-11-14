@@ -70,6 +70,12 @@ function render() {
 
 				camera.lookAt(scene.position);
 
+        if(music_is_active){
+        var nBarHalf = Math.ceil(nBar/2)
+        var histo = sound.makeHistogram(nBarHalf);
+        console.log(histo);
+        }
+
 				/* ball 2 rotation */
 				ball.position.x = Math.sin(time/2000)*4;
 				ball.position.y = Math.cos(time/2000)*4;
@@ -86,9 +92,11 @@ function render() {
 					uniforms.effector2.value = ball2.position;
 				}
 
+
 				if (has_gl) {
 					renderer.render( scene, camera );
 				}
+
 
 			}
 
