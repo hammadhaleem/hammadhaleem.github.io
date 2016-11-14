@@ -133,9 +133,32 @@
 			var attributes;
 			var uniforms;
 
+			analyserView1 = new AnalyserView("view1");
+    // analyserView2 = new AnalyserView("view2");
+
+    initAudio();
+    analyserView1.initByteBuffer();
+
+
 			init();
 			animate();
 
+
+
 		</script>
+
+		<!-- Sliders and other controls will be added here -->
+<div id="controls"> </div>
+
+<!-- Analyser type -->
+<input type="radio" name="radioSet" value="data" onMouseDown="analyserView1.setAnalysisType(ANALYSISTYPE_FREQUENCY);" />
+Frequency
+<input type="radio" name="radioSet" value="data" onMouseDown="analyserView1.setAnalysisType(ANALYSISTYPE_SONOGRAM);" />
+Sonogram
+<input type="radio" name="radioSet" value="data" checked="checked" onMouseDown="analyserView1.setAnalysisType(ANALYSISTYPE_3D_SONOGRAM);" />
+3D Sonogram
+<input type="radio" name="radioSet" value="data" onMouseDown="analyserView1.setAnalysisType(ANALYSISTYPE_WAVEFORM);"/>
+Waveform
+
 	</body>
 </html>

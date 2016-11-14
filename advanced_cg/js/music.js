@@ -42,10 +42,14 @@ function initAudio() {
     loadAudioBuffer(music_list[0]);
 }
 
+function draw() {
+    analyserView1.doFrequencyAnalysis();
+    window.requestAnimationFrame(draw);
+}
+
 function finishLoad() {
     source.buffer = audioBuffer;
     source.loop = true;
-
     source.start(0.0);
 
     window.requestAnimationFrame(draw);

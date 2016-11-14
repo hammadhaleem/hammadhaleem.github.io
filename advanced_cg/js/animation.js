@@ -10,7 +10,6 @@ function animate() {
 
 function init() {
 
-  initAudio();
   container = document.createElement( 'div' );
   document.body.appendChild( container );
 
