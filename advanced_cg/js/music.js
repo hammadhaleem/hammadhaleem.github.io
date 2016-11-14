@@ -41,3 +41,12 @@ function initAudio() {
 
     loadAudioBuffer(music_list[0]);
 }
+
+function finishLoad() {
+    source.buffer = audioBuffer;
+    source.loop = true;
+
+    source.start(0.0);
+
+    window.requestAnimationFrame(draw);
+}
