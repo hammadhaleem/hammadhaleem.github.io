@@ -6,8 +6,6 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
 		<script type="text/javascript" src="http://oos.moxiecode.com/js_webgl/build_r58/three.min.js"></script>
-
-		<script type="text/javascript" src="https://googlechrome.github.io/web-audio-samples/samples/audio/visualizer-gl/o3djs/base.js"></script>
 		<script type="text/javascript" src="js/window.resize.js"></script>
 		<script type="text/javascript" src="js/animation.js"></script>
 	</head>
@@ -138,19 +136,5 @@
 			animate();
 
 		</script>
-
-		<!-- Sliders and other controls will be added here -->
-<div id="controls"> </div>
-
-<!-- Analyser type -->
-<input type="radio" name="radioSet" value="data" onMouseDown="analyserView1.setAnalysisType(ANALYSISTYPE_FREQUENCY);" />
-Frequency
-<input type="radio" name="radioSet" value="data" onMouseDown="analyserView1.setAnalysisType(ANALYSISTYPE_SONOGRAM);" />
-Sonogram
-<input type="radio" name="radioSet" value="data" checked="checked" onMouseDown="analyserView1.setAnalysisType(ANALYSISTYPE_3D_SONOGRAM);" />
-3D Sonogram
-<input type="radio" name="radioSet" value="data" onMouseDown="analyserView1.setAnalysisType(ANALYSISTYPE_WAVEFORM);"/>
-Waveform
-
 	</body>
 </html>
