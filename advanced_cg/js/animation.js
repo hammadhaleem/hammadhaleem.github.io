@@ -77,12 +77,12 @@ function render() {
 
     camera.lookAt(scene.position);
 
-    if (music_is_active && render_counter % 20 == 15) {
-        var nBarHalf = Math.ceil(nBar / 2)
-        var histo = sound.makeHistogram(nBarHalf);
-        var amplitude = sound.amplitude();
-        // console.log(str(delta, amplitude , histo));
-    }
+    // if (music_is_active && render_counter % 20 == 15) {
+    //     var nBarHalf = Math.ceil(nBar / 2)
+    //     var histo = sound.makeHistogram(nBarHalf);
+    //     var amplitude = sound.amplitude();
+    //     console.log(str(delta, amplitude , histo));
+    // }
 
     /* ball 2 rotation */
     ball.position.x = Math.sin(time / 2000) * 4;
