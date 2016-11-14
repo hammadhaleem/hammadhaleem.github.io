@@ -63,6 +63,7 @@ function init() {
 
 function render() {
 
+    render_counter = render_counter + 1
     time = Date.now();
     delta = time - oldTime;
     oldTime = time;
@@ -76,7 +77,7 @@ function render() {
 
     camera.lookAt(scene.position);
 
-    if (music_is_active && delta % 5 == 1) {
+    if (music_is_active && render_counter % 20 == 15) {
         var nBarHalf = Math.ceil(nBar / 2)
         var histo = sound.makeHistogram(nBarHalf);
         var amplitude = sound.amplitude();
