@@ -77,7 +77,7 @@ function render() {
 
     camera.lookAt(scene.position);
 
-    if (music_is_active && render_counter % 3 == 2) {
+    if (music_is_active ) {
     //     var nBarHalf = Math.ceil(nBar / 2)
         histo = sound.makeHistogram(30);
         amplitude = sound.amplitude();
