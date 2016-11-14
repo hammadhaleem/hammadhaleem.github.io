@@ -81,7 +81,7 @@ function render() {
     //     var nBarHalf = Math.ceil(nBar / 2)
     //     var histo = sound.makeHistogram(nBarHalf);
     //     var amplitude = sound.amplitude();
-        console.log(str(delta, amplitude , histo));
+        console.log((delta, amplitude , histo));
     }
 
     /* ball 2 rotation */
