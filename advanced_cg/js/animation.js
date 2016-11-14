@@ -80,7 +80,7 @@ function render() {
     if (music_is_active ) {
     //     var nBarHalf = Math.ceil(nBar / 2)
         histo = sound.makeHistogram(30);
-        amplitude = sound.amplitude();
+        amplitude = 0 ;// sound.amplitude();
         console.log([render_counter, amplitude , histo , Math.sin(time / 2000)]);
 
 
