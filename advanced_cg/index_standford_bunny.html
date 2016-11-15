@@ -11,7 +11,7 @@
 
 	<body>
 
-		<script type="x-shader/x-vertex" id="vertexshader1">
+		<script type="x-shader/x-vertex" id="vertexshader">
 
 			attribute float time;
 			attribute vec3 customColor;
@@ -209,7 +209,7 @@
 					uniforms: 		uniforms,
 					attributes:     attributes,
 					wireframe: 		false,
-					fragmentShader: document.getElementById( 'fragmentshader' ).textContent,
+					vertexShader:   document.getElementById( 'vertexshader' ).textContent,
 					shading: 		THREE.FlatShading,
 
 				});
