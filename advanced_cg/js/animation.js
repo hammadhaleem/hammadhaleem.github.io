@@ -40,7 +40,7 @@ function init() {
     con.add(ball2);
 
     var loader = new THREE.JSONLoader();
-    loader.load("models/bunny.js", modelLoaded);
+    loader.load("models/bu_head.js", modelLoaded);
 
     try {
         // renderer
@@ -78,21 +78,21 @@ function render() {
     camera.lookAt(scene.position);
 
     if (music_is_active ) {
-    //     var nBarHalf = Math.ceil(nBar / 2)
+        //var nBarHalf = Math.ceil(nBar / 2)
         histo = sound.makeHistogram(30);
         amplitude = sound.amplitude();
         console.log([render_counter, amplitude , histo , Math.sin(time / 2000)]);
 
 
-    /* ball 2 rotation */
-    ball.position.x = (amplitude) * -4;
-    ball.position.y = (amplitude) * -4;
-    ball.position.z = (amplitude ) * -3;
+        /* ball 2 rotation */
+        ball.position.x = (amplitude) * -4;
+        ball.position.y = (amplitude) * -4;
+        ball.position.z = (amplitude ) * -3;
 
-    /*ball 1 rotation */
-    ball2.position.x = (amplitude ) * 4;
-    ball2.position.y = (amplitude ) * 4;
-    ball2.position.z = (amplitude ) * 3;
+        /*ball 1 rotation */
+        ball2.position.x = (amplitude ) * 4;
+        ball2.position.y = (amplitude ) * 4;
+        ball2.position.z = (amplitude ) * 3;
 
     }
     if (uniforms) {
