@@ -1,0 +1,148 @@
+<html>
+
+<body>
+    <script src="js/three.min.js"></script>
+    <script type="text/javascript">
+        var camera, scene, renderer;
+
+        var geometry, material, mesh1, mesh2, object_custom, particleLight;
+
+        init();
+        animate();
+
+        function add_particle_light() {
+            particleLight = new THREE.Mesh(
+                new THREE.SphereBufferGeometry(4, 8, 8),
+                new THREE.MeshBasicMaterial({
+                    color: 0xffffff
+                })
+            );
+
+            scene.add(particleLight);
+
+            scene.add(new THREE.AmbientLight(0x222222));
+
+            var directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+            directionalLight.position.set(1, 1, 1).normalize();
+            scene.add(directionalLight);
+
+            var pointLight = new THREE.PointLight(0xffffff, 2, 800);
+            particleLight.add(pointLight);
+
+            // stats = new Stats();
+            // container.appendChild( stats.dom );
+            // controls = new THREE.OrbitControls( camera );
+            // controls.target.set( 0, 0, 0 );
+            // controls.update();
+
+        }
+
+        function create_scene_and_renderer() {
+
+            camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 10000);
+            camera.position.z = 1000;
+
+            scene = new THREE.Scene();
+
+
+            renderer = new THREE.WebGLRenderer({
+                antialias: true
+            });
+
+            renderer.setPixelRatio(window.devicePixelRatio);
+            renderer.setSize(window.innerWidth, window.innerHeight)
+            renderer.gammaInput = true;
+            renderer.gammaOutput = true;
+
+        }
+
+        function add_some_object() {
+
+            for (var i = 9; i > 0; i--) {
+                var sphereRadius = 40;
+
+                var diffuseColor = new THREE.Color();
+                var geometry = new THREE.SphereBufferGeometry(sphereRadius, 32, 16);
+                var material = new THREE.MeshPhongMaterial();
+                var mesh = new THREE.Mesh(geometry, material);
+
+                mesh.position.x = i / 10 * 400 - 200;
+                mesh.position.y = i / 10 * 400 - 200;
+                mesh.position.z = i / 10 * 400 - 200;
+
+                // mesh.computeFaceNormals();
+                scene.add(mesh);
+            };
+
+
+        }
+
+        function add_some_random_object() {
+
+            var geom = new THREE.Geometry();
+            var v1 = new THREE.Vector3(0, 20, 0);
+            var v2 = new THREE.Vector3(11, 500, 0);
+            var v3 = new THREE.Vector3(0, 500, 500);
+
+            geom.vertices.push(v1);
+            geom.vertices.push(v2);
+            geom.vertices.push(v3);
+
+            geom.faces.push(new THREE.Face3(0, 1, 2));
+            geom.computeFaceNormals();
+
+            object_custom = new THREE.Mesh(geom, new THREE.MeshNormalMaterial());
+
+            object_custom.position.z = -100; //move a bit back - size of 500 is a bit big
+            object_custom.rotation.y = -Math.PI * .5; //triangle is pointing in depth, rotate it -90 degrees on Y
+            scene.add(object_custom);
+
+            geometry = new THREE.BoxGeometry(200, 200, 200);
+            material = new THREE.MeshBasicMaterial({
+                color: 0xff0000,
+                wireframe: true
+            });
+
+            mesh1 = new THREE.Mesh(geometry, material);
+            scene.add(mesh1);
+
+            mesh2 = new THREE.Mesh(geometry, material);
+            scene.add(mesh2);
+
+
+        }
+
+        function init() {
+
+            create_scene_and_renderer();
+            add_some_object();
+            add_particle_light();
+            add_some_random_object();
+
+            document.body.appendChild(renderer.domElement);
+
+        }
+
+        function animate() {
+            var timer = Date.now() * 0.00025;
+
+            requestAnimationFrame(animate);
+
+            mesh1.rotation.x += 0.01;
+            mesh2.rotation.y += 0.02;
+
+            object_custom.rotation.x += 0.01;
+            object_custom.rotation.y += 0.02;
+            object_custom.rotation.z += 0.03;
+
+            particleLight.position.x = Math.sin(timer * 7) * 300;
+            particleLight.position.y = Math.cos(timer * 5) * 400;
+            particleLight.position.z = Math.cos(timer * 3) * 300;
+
+            renderer.render(scene, camera);
+
+        }
+    </script>
+</body>
+
+</html>
