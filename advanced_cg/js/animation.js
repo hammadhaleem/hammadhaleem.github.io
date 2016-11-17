@@ -8,7 +8,7 @@ function animate() {
 }
 
 
-function init() {
+function init(object_to_load) {
 
     container = document.createElement('div');
     document.body.appendChild(container);
@@ -40,7 +40,7 @@ function init() {
     con.add(ball2);
 
     var loader = new THREE.JSONLoader();
-    loader.load("models/bu_head.js", modelLoaded);
+    loader.load("models/"+object_to_load, modelLoaded);
 
     try {
         // renderer

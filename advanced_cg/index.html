@@ -2,7 +2,7 @@
 <!--doctype html-->
 <html lang="en">
 	<head>
-		<title>Stanford Bunny Simple</title>
+		<title>Computer Graphics Assingments</title>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
 		<script type="text/javascript" src="http://oos.moxiecode.com/js_webgl/build_r58/three.min.js"></script>
@@ -111,6 +111,7 @@
 
 	<body>
 		<script>
+			var object_to_load = 'skull.js'
 			var render_counter= 0 ;
 			var nBar;
 			var sound;
@@ -133,7 +134,7 @@
 			var attributes;
 			var uniforms;
 
-			init();
+			init(object_to_load);
 			init_audio();
 			animate();</script>
 	</body>
