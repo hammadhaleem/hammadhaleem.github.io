@@ -80,28 +80,24 @@ function render() {
     camera.lookAt(scene.position);
 
     if (music_is_active) {
-        //var nBarHalf = Math.ceil(nBar / 2)
-        histo = sound.makeHistogram(30);
         amplitude = sound.amplitude();
-        console.log([render_counter, amplitude, histo, Math.sin(time / 2000)]);
 
+        ball.position.x = amplitude + Math.sin(time/2000) * -4; //* (1.0/amplitude)
+        ball.position.y = amplitude + Math.sin(time/2000) * -4;
+        ball.position.z = amplitude + Math.sin(time/2000) * -3;
 
-        /* ball 2 rotation */
-        ball.position.x = amplitude * Math.sin(time/2000) * -4; //* (1.0/amplitude)
-        ball.position.y = amplitude * Math.sin(time/2000) * -4;
-        ball.position.z = amplitude * Math.sin(time/2000) * -3;
+        ball1.position.x = amplitude + Math.sin(time/2000) * Math.cos(time/2000) * 2;
+        ball1.position.y = amplitude + Math.sin(time/2000) * Math.cos(time/2000) * -2;
+        ball1.position.z = amplitude + Math.sin(time/2000) * Math.cos(time/2000) * -1.5;
 
-        ball1.position.x = amplitude * Math.sin(time/2000)* Math.cos(time/2000) * 2;
-        ball1.position.y = amplitude * Math.sin(time/2000)* Math.cos(time/2000) * -2;
-        ball1.position.z = amplitude * Math.sin(time/2000)* Math.cos(time/2000) * -1.5;
+        ball2.position.x = amplitude + Math.cos(time/2000)  * 4;
+        ball2.position.y = amplitude + Math.cos(time/2000)  * 4;
+        ball2.position.z = amplitude + Math.cos(time/2000)  * 3;
 
-        /*ball 1 rotation */
-        ball2.position.x = amplitude * Math.cos(time/2000)  * 4;
-        ball2.position.y = amplitude * Math.cos(time/2000)  * 4;
-        ball2.position.z = amplitude * Math.cos(time/2000)  * 3;
+        uniforms.song_amplitude.value = amplitude;
 
     }
-    if (uniforms) {
+    if (uniforms && music_is_active) {
         uniforms.globalTime.value += delta * 0.00005;
         uniforms.effector.value = ball.position;
         uniforms.effector1.value = ball1.position;

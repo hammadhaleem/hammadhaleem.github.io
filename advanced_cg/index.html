@@ -59,6 +59,7 @@
 			uniform float globalTime;
 			attribute float seed;
 			attribute vec3 normals;
+			uniform float song_amplitude;
 
 			varying vec3 vColor;
 			varying vec3 vNormal;
@@ -92,7 +93,13 @@
 
 				vec3 animated = position;
 				float s = abs( sin((localTime*50.0)+seed)*0.1 )+ invDistance+ invDistance1 + invDistance2;
-				animated +=  normals*s;
+
+				if (song_amplitude == 0.0)
+					animated +=  normals*( s ) ;
+				else if (song_amplitude > 0.0)
+					animated +=  normals*( s + 1.0/song_amplitude ) ;
+				else
+					animated +=  normals*( s - 1.0/song_amplitude ) ;
 
 				vec4 mvPosition = modelViewMatrix * vec4( animated, 1.0 );
 				gl_Position = projectionMatrix * mvPosition;
@@ -167,7 +174,7 @@
 			var camera_position_z = 17.0;
 			var near_plane = 1;
 			var far_plane = 100000;
-			var view_camera_fructum = 70;
+			var view_camera_fructum = 65;
 
 			var delta;
 			var time;
