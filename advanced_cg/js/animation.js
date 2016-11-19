@@ -32,6 +32,11 @@ function init(object_to_load) {
     ball.scale.set(0.7, 0.7, 0);
     con.add(ball);
 
+
+    ball1 = new THREE.Sprite(ballMaterial);
+    ball1.scale.set(0.7, 0.7, 0);
+    con.add(ball1);
+
     ball2 = new THREE.Sprite(ballMaterial);
     ball2.scale.set(0.7, 0.7, 0);
     con.add(ball2);
@@ -69,8 +74,8 @@ function render() {
         delta = 1000 / 60;
     }
 
-    camera.position.x = (Math.sin(time / 2000) * 0.3) * 17;
-    camera.position.z = 17;
+    camera.position.x = (Math.sin(time / 2000)) * camera_position_z;
+    camera.position.z = camera_position_z;
 
     camera.lookAt(scene.position);
 
@@ -82,20 +87,26 @@ function render() {
 
 
         /* ball 2 rotation */
-        ball.position.x = Math.sin(time/2000) * (1.0/amplitude) * -4;
-        ball.position.y = Math.sin(time/2000) * (1.0/amplitude) * -4;
-        ball.position.z = Math.sin(time/2000) * (1.0/amplitude) * -3;
+        ball.position.x = amplitude * Math.sin(time/2000) * -4; //* (1.0/amplitude)
+        ball.position.y = amplitude * Math.sin(time/2000) * -4;
+        ball.position.z = amplitude * Math.sin(time/2000) * -3;
+
+        ball1.position.x = amplitude * Math.sin(time/2000)* Math.cos(time/2000) * 2;
+        ball1.position.y = amplitude * Math.sin(time/2000)* Math.cos(time/2000) * -2;
+        ball1.position.z = amplitude * Math.sin(time/2000)* Math.cos(time/2000) * -1.5;
 
         /*ball 1 rotation */
-        ball2.position.x = Math.cos(time/2000)  * 4;
-        ball2.position.y = Math.cos(time/2000)  * 4;
-        ball2.position.z = Math.cos(time/2000)  * 3;
+        ball2.position.x = amplitude * Math.cos(time/2000)  * 4;
+        ball2.position.y = amplitude * Math.cos(time/2000)  * 4;
+        ball2.position.z = amplitude * Math.cos(time/2000)  * 3;
 
     }
     if (uniforms) {
         uniforms.globalTime.value += delta * 0.00005;
         uniforms.effector.value = ball.position;
+        uniforms.effector1.value = ball1.position;
         uniforms.effector2.value = ball2.position;
+
     }
 
 

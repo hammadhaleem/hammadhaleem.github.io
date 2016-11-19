@@ -3,35 +3,30 @@ function modelLoaded(ico) {
 
 
     attributes = {
-
-                    customColor: { type: 'c', value: [] },
-                    time:        { type: 'f', value: [] },
-                    seed:        { type: 'f', value: [] },
-                    normals: { type: 'v3', value: [] },
-                    
-                };
+        customColor: { type: 'c', value: [] },
+        time: { type: 'f', value: [] },
+        seed: { type: 'f', value: [] },
+        normals: { type: 'v3', value: [] }, 
+    };
 
     uniforms = {
-
-                    color:      { type: "c", value: new THREE.Color( 0xffffff ) },
-                    globalTime: { type: "f", value: 0.0 },
-                    light:      { type: "v3", value: new THREE.Vector3( 0.0, 1.0, 0.2 ) },
-                    effector:   { type: "v3", value: new THREE.Vector3( 0.0, 0.0, 0.0 ) },
-                    effector2:  { type: "v3", value: new THREE.Vector3( 0.0, 0.0, 0.0 ) },
-                    lightDistance: { type: "f", value: 5.0 },
-
-                };
+        color:      { type: "c", value: new THREE.Color( 0xffffff ) },
+        globalTime: { type: "f", value: 0.0 },
+        light:      { type: "v3", value: new THREE.Vector3( 0.0, 1.0, 0.2 ) },
+        effector:   { type: "v3", value: new THREE.Vector3( 0.0, 0.0, 0.0 ) },
+        effector1:  { type: "v3", value: new THREE.Vector3( 0.0, 0.0, 0.0 ) },
+        effector2:  { type: "v3", value: new THREE.Vector3( 0.0, 0.0, 0.0 ) },
+        lightDistance: { type: "f", value: 5.0 },
+    };
 
     var material = new THREE.ShaderMaterial( {
-
-                    uniforms:       uniforms,
-                    attributes:     attributes,
-                    vertexShader:   document.getElementById( 'vertexshader' ).textContent,
-                    fragmentShader: document.getElementById( 'fragmentshader' ).textContent,
-                    wireframe:      false,
-                    shading:        THREE.FlatShading,
-                    
-                });
+        uniforms:       uniforms,
+        attributes:     attributes,
+        vertexShader:   document.getElementById( 'vertexshader' ).textContent,
+        fragmentShader: document.getElementById( 'fragmentshader' ).textContent,
+        wireframe:      false,
+        shading:        THREE.FlatShading,
+    });
 
     var m = new THREE.MeshBasicMaterial();
 
