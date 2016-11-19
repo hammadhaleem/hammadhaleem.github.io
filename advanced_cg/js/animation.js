@@ -1,8 +1,5 @@
 function animate() {
-
-
     requestAnimationFrame(animate);
-
     render();
 
 }
@@ -26,7 +23,7 @@ function init(object_to_load) {
     // balls
     var ballImage = THREE.ImageUtils.loadTexture("bob.png");
     var ballMaterial = new THREE.SpriteMaterial({
-        color: 0xff66ff,
+        color: ball_color,
         map: ballImage,
         useScreenCoordinates: false,
         blending: THREE.NormalBlending
@@ -40,7 +37,7 @@ function init(object_to_load) {
     con.add(ball2);
 
     var loader = new THREE.JSONLoader();
-    loader.load("models/"+object_to_load, modelLoaded);
+    loader.load("models/" + object_to_load, modelLoaded);
 
     try {
         // renderer
@@ -77,22 +74,22 @@ function render() {
 
     camera.lookAt(scene.position);
 
-    if (music_is_active ) {
+    if (music_is_active) {
         //var nBarHalf = Math.ceil(nBar / 2)
         histo = sound.makeHistogram(30);
         amplitude = sound.amplitude();
-        console.log([render_counter, amplitude , histo , Math.sin(time / 2000)]);
+        console.log([render_counter, amplitude, histo, Math.sin(time / 2000)]);
 
 
         /* ball 2 rotation */
-        ball.position.x = (amplitude) * -4;
-        ball.position.y = (amplitude) * -4;
-        ball.position.z = (amplitude ) * -3;
+        ball.position.x = Math.sin(time/2000) * (1.0/amplitude) * -4;
+        ball.position.y = Math.sin(time/2000) * (1.0/amplitude) * -4;
+        ball.position.z = Math.sin(time/2000) * (1.0/amplitude) * -3;
 
         /*ball 1 rotation */
-        ball2.position.x = (amplitude ) * 4;
-        ball2.position.y = (amplitude ) * 4;
-        ball2.position.z = (amplitude ) * 3;
+        ball2.position.x = Math.cos(time/2000)  * 4;
+        ball2.position.y = Math.cos(time/2000)  * 4;
+        ball2.position.z = Math.cos(time/2000)  * 3;
 
     }
     if (uniforms) {

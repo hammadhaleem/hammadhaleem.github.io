@@ -35,8 +35,8 @@ function modelLoaded(ico) {
 
     var m = new THREE.MeshBasicMaterial();
 
-    var regularColor = new THREE.Color(0xffc4ef);
-    var glowColor = new THREE.Color(0xff00ba);
+    var regularColor = new THREE.Color(regular_color);
+    var glowColor = new THREE.Color(glow_color);
 
     var majorGeometry = new THREE.Geometry();
 
