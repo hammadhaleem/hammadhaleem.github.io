@@ -11,41 +11,7 @@
 		<script type="text/javascript" src="js/animation.js"></script>
 		<script type="text/javascript" src="js/music.js"></script>
 
-		<style>
-
-		body {
-		  font-size: 16px;
-		  line-height: 28px;
-
-		  font-family: 'klavika-web', sans-serif;
-		  font-weight: normal;
-		  font-style: normal;
-		}
-		body * {
-		  box-sizing: content-box;
-		}
-
-
-
-		body {
-			background:#666;
-			color:#fff;
-			padding:0;
-			margin:0;
-			overflow:hidden;
-			font-family:sans-serif;
-			text-align:center;
-			margin: 5px 15px 25px; 
-		  	background: rgba(0, 0, 0, .1);
-		  	border-radius: 5px;
-		  	box-shadow: 0 1px  2px rgba(0, 0, 0, .2),
-		              0 1px  10px rgba(0, 0, 0, .2);
-		  	min-height: 35px;
-		  	float: left;
-		  	clear: left;
-		  	position: relative;
-		}
-		</style>
+		<link rel="stylesheet" href="css/back_ground.css">
 
 		<script type="x-shader/x-vertex" id="vertexshader">
 
@@ -55,6 +21,7 @@
 			uniform vec3 effector;
 			uniform vec3 effector1;
 			uniform vec3 effector2;
+			uniform vec3 effector3;
 
 			uniform float globalTime;
 			attribute float seed;
@@ -86,20 +53,23 @@
 					float distance1 = dif1.x * dif1.x + dif1.y * dif1.y + dif1.z * dif1.z;
 					float invDistance1 = max(0.0, 20.0-distance1) / 15.0;
 
-
 					vec3 dif2 = position - effector2;
 					float distance2 = dif2.x * dif2.x + dif2.y * dif2.y + dif2.z * dif2.z;
 					float invDistance2 = max(0.0, 20.0-distance2) / 15.0;
 
+					vec3 dif3 = position - effector3;
+					float distance3 = dif3.x * dif3.x + dif3.y * dif3.y + dif3.z * dif3.z;
+					float invDistance3 = max(0.0, 20.0-distance3) / 15.0;
+
 				vec3 animated = position;
-				float s = abs( sin((localTime*50.0)+seed)*0.1 )+ invDistance+ invDistance1 + invDistance2;
+				float s = abs( sin((localTime*50.0)+seed)*0.1 )+ invDistance + invDistance1 + invDistance2 + invDistance3;
 
 				if (song_amplitude == 0.0)
-					animated +=  normals*( s ) ;
+					animated +=  normals * (s);
 				else if (song_amplitude > 0.0)
-					animated +=  normals*( s + 1.0/song_amplitude ) ;
+					animated +=  normals * (s + 1.0/song_amplitude);
 				else
-					animated +=  normals*( s - 1.0/song_amplitude ) ;
+					animated +=  normals * (s - 1.0/song_amplitude);
 
 				vec4 mvPosition = modelViewMatrix * vec4( animated, 1.0 );
 				gl_Position = projectionMatrix * mvPosition;

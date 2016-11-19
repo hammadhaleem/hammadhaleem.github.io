@@ -28,6 +28,8 @@ function init(object_to_load) {
         useScreenCoordinates: false,
         blending: THREE.NormalBlending
     });
+
+
     ball = new THREE.Sprite(ballMaterial);
     ball.scale.set(0.7, 0.7, 0);
     con.add(ball);
@@ -40,6 +42,10 @@ function init(object_to_load) {
     ball2 = new THREE.Sprite(ballMaterial);
     ball2.scale.set(0.7, 0.7, 0);
     con.add(ball2);
+
+    ball3 = new THREE.Sprite(ballMaterial);
+    ball3.scale.set(0.7, 0.7, 0);
+    con.add(ball3);
 
     var loader = new THREE.JSONLoader();
     loader.load("models/" + object_to_load, modelLoaded);
@@ -94,14 +100,19 @@ function render() {
         ball2.position.y = amplitude + Math.cos(time/2000)  * 4;
         ball2.position.z = amplitude + Math.cos(time/2000)  * 3;
 
-        uniforms.song_amplitude.value = amplitude;
+        ball3.position.x = amplitude + Math.sin(time/2000) * Math.cos(time/2000) * -2;
+        ball3.position.y = amplitude + Math.sin(time/2000) * Math.cos(time/2000) * 2;
+        ball3.position.z = amplitude + Math.sin(time/2000) * Math.cos(time/2000) * 1.5;
 
     }
     if (uniforms && music_is_active) {
+
+        uniforms.song_amplitude.value = amplitude;
         uniforms.globalTime.value += delta * 0.00005;
         uniforms.effector.value = ball.position;
         uniforms.effector1.value = ball1.position;
         uniforms.effector2.value = ball2.position;
+        uniforms.effector3.value = ball3.position;
 
     }
 

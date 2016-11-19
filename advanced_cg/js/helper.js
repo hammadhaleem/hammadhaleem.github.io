@@ -16,6 +16,7 @@ function modelLoaded(ico) {
         effector:   { type: "v3", value: new THREE.Vector3( 0.0, 0.0, 0.0 ) },
         effector1:  { type: "v3", value: new THREE.Vector3( 0.0, 0.0, 0.0 ) },
         effector2:  { type: "v3", value: new THREE.Vector3( 0.0, 0.0, 0.0 ) },
+        effector3:  { type: "v3", value: new THREE.Vector3( 0.0, 0.0, 0.0 ) },
         song_amplitude : { type: "f", value: 0.0 },
         lightDistance: { type: "f", value: 5.0 },
     };

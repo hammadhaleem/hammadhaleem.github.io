@@ -1,9 +1,21 @@
-body {
-	background:#666;
-	color:#fff;
-	padding:0;
-	margin:0;
-	overflow:hidden;
-	font-family:sans-serif;
-	text-align:center;
-}
+
+            body {
+                background: #000000;
+                padding: 0;
+                margin: 0;
+                overflow: hidden;
+                font-size: 16px;
+                line-height: 28px;
+                font-family: 'klavika-web', sans-serif;
+                font-weight: normal;
+                font-style: normal;
+                font-family: sans-serif;
+                text-align: center;
+                margin: 5px 15px 25px;
+                border-radius: 5px;
+                box-shadow: 0 1px 2px rgba(0, 0, 0, .2), 0 1px 10px rgba(0, 0, 0, .2);
+                min-height: 35px;
+                float: left;
+                clear: left;
+                position: relative;
+            }
