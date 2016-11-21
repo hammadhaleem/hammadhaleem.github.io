@@ -18,18 +18,3 @@ function init_audio() {
 
 }
 
-
-function set_max_x_y_z(Vector_point){
-        if (Vector_point.x > max_x){
-            max_x = Vector_point.x;
-        }
-
-        if (Vector_point.y > max_y){
-            max_y = Vector_point.y;
-        }
-
-
-        if (Vector_point.z > max_z){
-            max_z = Vector_point.z;
-        }
-}
