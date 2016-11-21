@@ -1,9 +1,18 @@
+
+
+
 function animate() {
     requestAnimationFrame(animate);
     render();
-
 }
 
+function wait(ms){
+   var start = new Date().getTime();
+   var end = start;
+   while(end < start + ms) {
+     end = new Date().getTime();
+  }
+}
 
 function init(object_to_load) {
 
@@ -22,12 +31,17 @@ function init(object_to_load) {
 
     // balls
     var ballImage = THREE.ImageUtils.loadTexture("bob.png");
+
     var ballMaterial = new THREE.SpriteMaterial({
         color: ball_color,
         map: ballImage,
         useScreenCoordinates: false,
         blending: THREE.NormalBlending
     });
+
+
+    var loader = new THREE.JSONLoader();
+    loader.load("models/" + object_to_load, modelLoaded);
 
 
     ball = new THREE.Sprite(ballMaterial);
@@ -47,8 +61,8 @@ function init(object_to_load) {
     ball3.scale.set(0.7, 0.7, 0);
     con.add(ball3);
 
-    var loader = new THREE.JSONLoader();
-    loader.load("models/" + object_to_load, modelLoaded);
+    
+
 
     try {
         // renderer
@@ -60,6 +74,7 @@ function init(object_to_load) {
 
         container.appendChild(renderer.domElement);
         has_gl = true;
+
     } catch (e) {
         // need webgl
         document.getElementById('info').innerHTML = "Web GL is not supprted in this browser";
@@ -88,21 +103,23 @@ function render() {
     if (music_is_active) {
         amplitude = sound.amplitude();
 
-        ball.position.x = amplitude + Math.sin(time/2000) * -4; //* (1.0/amplitude)
-        ball.position.y = amplitude + Math.sin(time/2000) * -4;
-        ball.position.z = amplitude + Math.sin(time/2000) * -3;
+        ball.position.x = amplitude + Math.sin(time/2000) * max_x; //* (1.0/amplitude)
+        ball.position.y = amplitude + Math.sin(time/2000) * max_y;
+        ball.position.z = amplitude + Math.sin(time/2000) * max_z;
 
-        ball1.position.x = amplitude + Math.sin(time/2000) * Math.cos(time/2000) * 2;
-        ball1.position.y = amplitude + Math.sin(time/2000) * Math.cos(time/2000) * -2;
-        ball1.position.z = amplitude + Math.sin(time/2000) * Math.cos(time/2000) * -1.5;
+        // console.log("---",max_x, max_y , max_z);
 
-        ball2.position.x = amplitude + Math.cos(time/2000)  * 4;
-        ball2.position.y = amplitude + Math.cos(time/2000)  * 4;
-        ball2.position.z = amplitude + Math.cos(time/2000)  * 3;
+        ball1.position.x = amplitude + Math.sin(time/2000) * Math.cos(time/2000) * max_x;
+        ball1.position.y = amplitude + Math.sin(time/2000) * Math.cos(time/2000) * -max_y
+        ball1.position.z = amplitude + Math.sin(time/2000) * Math.cos(time/2000) * max_z;
 
-        ball3.position.x = amplitude + Math.sin(time/2000) * Math.cos(time/2000) * -2;
-        ball3.position.y = amplitude + Math.sin(time/2000) * Math.cos(time/2000) * 2;
-        ball3.position.z = amplitude + Math.sin(time/2000) * Math.cos(time/2000) * 1.5;
+        ball2.position.x = amplitude + Math.cos(time/2000)  * -max_x;
+        ball2.position.y = amplitude + Math.cos(time/2000)  * -max_y;
+        ball2.position.z = amplitude + Math.cos(time/2000)  * -max_z;
+
+        ball3.position.x = amplitude + Math.sin(time/2000) * Math.cos(time/2000) * -max_x;
+        ball3.position.y = amplitude + Math.sin(time/2000) * Math.cos(time/2000) * max_y;
+        ball3.position.z = amplitude + Math.sin(time/2000) * Math.cos(time/2000) * -max_z;
 
     }
     if (uniforms && music_is_active) {

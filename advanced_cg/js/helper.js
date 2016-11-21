@@ -1,4 +1,24 @@
 
+function abs(number){
+    if ( number < 0 )
+        number = number*-1;
+    return number ;
+}
+function set_max_x_y_z(Vector_point){
+        if (abs(Vector_point.x) > abs(max_x)){
+            max_x = abs(Vector_point.x);
+        }
+
+        if (abs(Vector_point.y) > abs(max_y)){
+            max_y = abs(Vector_point.y);
+        }
+
+        if (abs(Vector_point.z) > abs(max_z)){
+            max_z = abs(Vector_point.z);
+        }
+
+}
+
 function modelLoaded(ico) {
 
 
@@ -52,6 +72,11 @@ function modelLoaded(ico) {
 
 
         var tetra = new THREE.TetrahedronGeometry(1, 0);
+
+        set_max_x_y_z(v0);
+        set_max_x_y_z(v1);
+        set_max_x_y_z(v2);
+
 
         tetra.vertices[3] = v0;
         tetra.vertices[0] = v1;
@@ -120,5 +145,7 @@ function modelLoaded(ico) {
 
     var mesh = new THREE.Mesh(majorGeometry, material);
     con.add(mesh);
+
+    // console.log(max_x, max_y , max_z)
 
 }
