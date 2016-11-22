@@ -95,7 +95,7 @@ function render() {
         delta = 1000 / 60;
     }
 
-    camera.position.x = (Math.sin(time / 2000)) * camera_position_z;
+    // camera.position.x = (Math.sin(time / 2000)) * camera_position_z;
     camera.position.z = camera_position_z;
 
     camera.lookAt(scene.position);
@@ -103,24 +103,24 @@ function render() {
     if (music_is_active) {
         amplitude = sound.amplitude();
 
-        ball.position.x = amplitude + Math.sin(time/2000) * max_x; //* (1.0/amplitude)
-        ball.position.y = amplitude + Math.sin(time/2000) * max_y;
-        ball.position.z = amplitude + Math.sin(time/2000) * max_z;
+        // ball.position.x = amplitude + Math.sin(time/2000) * max_x; //* (1.0/amplitude)
+        // ball.position.y = amplitude + Math.sin(time/2000) * max_y;
+        // ball.position.z = amplitude + Math.sin(time/2000) * max_z;
 
-        // console.log("---",max_x, max_y , max_z);
+        // // console.log("---",max_x, max_y , max_z);
 
-        ball1.position.x = amplitude + Math.sin(time/2000) * Math.cos(time/2000) * max_x;
-        ball1.position.y = amplitude + Math.sin(time/2000) * Math.cos(time/2000) * -max_y
-        ball1.position.z = amplitude + Math.sin(time/2000) * Math.cos(time/2000) * max_z;
+        // ball1.position.x = amplitude + Math.sin(time/2000) * Math.cos(time/2000) * max_x;
+        // ball1.position.y = amplitude + Math.sin(time/2000) * Math.cos(time/2000) * -max_y
+        // ball1.position.z = amplitude + Math.sin(time/2000) * Math.cos(time/2000) * max_z;
 
-        ball2.position.x = amplitude + Math.cos(time/2000)  * -max_x;
-        ball2.position.y = amplitude + Math.cos(time/2000)  * -max_y;
-        ball2.position.z = amplitude + Math.cos(time/2000)  * -max_z;
+        // ball2.position.x = amplitude + Math.cos(time/2000)  * -max_x;
+        // ball2.position.y = amplitude + Math.cos(time/2000)  * -max_y;
+        // ball2.position.z = amplitude + Math.cos(time/2000)  * -max_z;
 
-        ball3.position.x = amplitude + Math.sin(time/2000) * Math.cos(time/2000) * -max_x;
-        ball3.position.y = amplitude + Math.sin(time/2000) * Math.cos(time/2000) * max_y;
-        ball3.position.z = amplitude + Math.sin(time/2000) * Math.cos(time/2000) * -max_z;
-
+        // ball3.position.x = amplitude + Math.sin(time/2000) * Math.cos(time/2000) * -max_x;
+        // ball3.position.y = amplitude + Math.sin(time/2000) * Math.cos(time/2000) * max_y;
+        // ball3.position.z = amplitude + Math.sin(time/2000) * Math.cos(time/2000) * -max_z;
+        // console.log(1.0/amplitude)
     }
     if (uniforms && music_is_active) {
 
