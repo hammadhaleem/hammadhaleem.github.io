@@ -41,20 +41,20 @@ function init(object_to_load) {
     loader.load("models/" + object_to_load, modelLoaded);
 
     ball = new THREE.Sprite(ballMaterial);
-    ball.scale.set(0.7, 0.7, 0);
+    ball.scale.set(ball_radius, ball_radius, 0);
     con.add(ball);
 
 
     ball1 = new THREE.Sprite(ballMaterial);
-    ball1.scale.set(0.7, 0.7, 0);
+    ball1.scale.set(ball_radius, ball_radius, 0);
     con.add(ball1);
 
     ball2 = new THREE.Sprite(ballMaterial);
-    ball2.scale.set(0.7, 0.7, 0);
+    ball2.scale.set(ball_radius, ball_radius, 0);
     con.add(ball2);
 
     ball3 = new THREE.Sprite(ballMaterial);
-    ball3.scale.set(0.7, 0.7, 0);
+    ball3.scale.set(ball_radius, ball_radius, 0);
     con.add(ball3);
 
 
@@ -69,13 +69,6 @@ function init(object_to_load) {
 
         container.appendChild(renderer.domElement);
         has_gl = true;
-
-        // var controls = new THREE.OrbitControls( camera, renderer.domElement );
-        // //         //controls.addEventListener( 'change', render ); // add this only if there is no animation loop (requestAnimationFrame)
-        // controls.enableDamping = true;
-        // controls.dampingFactor = 0.25;
-        // controls.enableZoom = false;
-        
 
     } catch (e) {
         // need webgl
@@ -100,7 +93,7 @@ function render() {
     }
 
     if(camera_rotate == true)
-        camera.position.x = (Math.sin(time / 2000)) * camera_position_z;
+        camera.position.x = (Math.sin(time / 2000)) * camera_position_z * 0.5;
     
     camera.position.z = camera_position_z;
     camera.lookAt(scene.position);
@@ -120,22 +113,22 @@ function render() {
                 stack_time_delta= 0;
         }
 
-        ball.position.x = amplitude + Math.sin(time/2000) * max_x;
-        ball.position.y = amplitude + Math.sin(time/2000) * max_y;
-        ball.position.z = amplitude + Math.sin(time/2000) * max_z;
+        ball.position.x = Math.sin(time/2000) * max_x * 0.5;
+        ball.position.y = Math.sin(time/2000) * max_y * 0.5;
+        ball.position.z = Math.sin(time/2000) * max_z * 0.5;
 
-        ball1.position.x = amplitude + Math.sin(time/2000) * Math.cos(time/2000) * max_x;
-        ball1.position.y = amplitude + Math.sin(time/2000) * Math.cos(time/2000) * -max_y
-        ball1.position.z = amplitude + Math.sin(time/2000) * Math.cos(time/2000) * max_z;
+        ball1.position.x = Math.sin(time/2000) * Math.cos(time/2000) * max_x * 0.5;
+        ball1.position.y = Math.sin(time/2000) * Math.cos(time/2000) * -max_y * 0.5;
+        ball1.position.z = Math.sin(time/2000) * Math.cos(time/2000) * max_z * 0.5;
 
-        ball2.position.x = amplitude + Math.cos(time/2000)  * -max_x;
-        ball2.position.y = amplitude + Math.cos(time/2000)  * -max_y;
-        ball2.position.z = amplitude + Math.cos(time/2000)  * -max_z;
+        ball2.position.x = Math.cos(time/2000)  * -max_x * 0.5;
+        ball2.position.y = Math.cos(time/2000)  * -max_y * 0.5;
+        ball2.position.z = Math.cos(time/2000)  * -max_z * 0.5;
 
-        ball3.position.x = amplitude + Math.sin(time/2000) * Math.cos(time/2000) * -max_x;
-        ball3.position.y = amplitude + Math.sin(time/2000) * Math.cos(time/2000) * max_y;
-        ball3.position.z = amplitude + Math.sin(time/2000) * Math.cos(time/2000) * -max_z;
-        // console.log(min_x, max_x)
+        ball3.position.x = Math.sin(time/2000) * Math.cos(time/2000) * -max_x * 0.5;
+        ball3.position.y = Math.sin(time/2000) * Math.cos(time/2000) * max_y * 0.5;
+        ball3.position.z = Math.sin(time/2000) * Math.cos(time/2000) * -max_z* 0.5;
+
     }
     if (uniforms && music_is_active) {
 
