@@ -1,6 +1,3 @@
-
-
-
 function animate() {
     requestAnimationFrame(animate);
     render();
@@ -43,7 +40,6 @@ function init(object_to_load) {
     var loader = new THREE.JSONLoader();
     loader.load("models/" + object_to_load, modelLoaded);
 
-
     ball = new THREE.Sprite(ballMaterial);
     ball.scale.set(0.7, 0.7, 0);
     con.add(ball);
@@ -60,9 +56,6 @@ function init(object_to_load) {
     ball3 = new THREE.Sprite(ballMaterial);
     ball3.scale.set(0.7, 0.7, 0);
     con.add(ball3);
-
-    
-
 
     try {
         // renderer
@@ -95,38 +88,49 @@ function render() {
         delta = 1000 / 60;
     }
 
-    // camera.position.x = (Math.sin(time / 2000)) * camera_position_z;
+    if(camera_rotate == true)
+        camera.position.x = (Math.sin(time / 2000)) * camera_position_z;
+    
     camera.position.z = camera_position_z;
-
     camera.lookAt(scene.position);
 
-    if (music_is_active) {
+    stack_time_delta = stack_time_delta + delta;
+
+    if (uniforms && music_is_active) {
+        amplitude_stack =  uniforms.sound_queue.value;
+        
         amplitude = sound.amplitude();
 
-        // ball.position.x = amplitude + Math.sin(time/2000) * max_x; //* (1.0/amplitude)
-        // ball.position.y = amplitude + Math.sin(time/2000) * max_y;
-        // ball.position.z = amplitude + Math.sin(time/2000) * max_z;
+        if(stack_time_delta >  100 ){
+                amplitude_stack.push((10.0 * amplitude));
+                amplitude_stack.shift();
 
-        // // console.log("---",max_x, max_y , max_z);
+                uniforms.sound_queue.value =  amplitude_stack; 
+                stack_time_delta= 0;
+        }
 
-        // ball1.position.x = amplitude + Math.sin(time/2000) * Math.cos(time/2000) * max_x;
-        // ball1.position.y = amplitude + Math.sin(time/2000) * Math.cos(time/2000) * -max_y
-        // ball1.position.z = amplitude + Math.sin(time/2000) * Math.cos(time/2000) * max_z;
+        ball.position.x = amplitude + Math.sin(time/2000) * max_x;
+        ball.position.y = amplitude + Math.sin(time/2000) * max_y;
+        ball.position.z = amplitude + Math.sin(time/2000) * max_z;
 
-        // ball2.position.x = amplitude + Math.cos(time/2000)  * -max_x;
-        // ball2.position.y = amplitude + Math.cos(time/2000)  * -max_y;
-        // ball2.position.z = amplitude + Math.cos(time/2000)  * -max_z;
+        ball1.position.x = amplitude + Math.sin(time/2000) * Math.cos(time/2000) * max_x;
+        ball1.position.y = amplitude + Math.sin(time/2000) * Math.cos(time/2000) * -max_y
+        ball1.position.z = amplitude + Math.sin(time/2000) * Math.cos(time/2000) * max_z;
 
-        // ball3.position.x = amplitude + Math.sin(time/2000) * Math.cos(time/2000) * -max_x;
-        // ball3.position.y = amplitude + Math.sin(time/2000) * Math.cos(time/2000) * max_y;
-        // ball3.position.z = amplitude + Math.sin(time/2000) * Math.cos(time/2000) * -max_z;
-        // console.log(1.0/amplitude)
+        ball2.position.x = amplitude + Math.cos(time/2000)  * -max_x;
+        ball2.position.y = amplitude + Math.cos(time/2000)  * -max_y;
+        ball2.position.z = amplitude + Math.cos(time/2000)  * -max_z;
+
+        ball3.position.x = amplitude + Math.sin(time/2000) * Math.cos(time/2000) * -max_x;
+        ball3.position.y = amplitude + Math.sin(time/2000) * Math.cos(time/2000) * max_y;
+        ball3.position.z = amplitude + Math.sin(time/2000) * Math.cos(time/2000) * -max_z;
+        // console.log(min_x, max_x)
     }
     if (uniforms && music_is_active) {
 
         uniforms.song_amplitude.value = amplitude;
         uniforms.globalTime.value += delta * 0.00005;
-        uniforms.effector.value = ball.position;
+        uniforms.effector.value  = ball.position;
         uniforms.effector1.value = ball1.position;
         uniforms.effector2.value = ball2.position;
         uniforms.effector3.value = ball3.position;

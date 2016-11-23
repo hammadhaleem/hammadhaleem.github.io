@@ -4,9 +4,12 @@ function abs(number){
         number = number*-1;
     return number ;
 }
+
+
 function set_max_x_y_z(Vector_point){
-        if (abs(Vector_point.x) > abs(max_x)){
-            max_x = abs(Vector_point.x);
+        if ((Vector_point.x) > (max_x)){
+            max_x = (Vector_point.x);
+            uniforms.x_max.value = max_x;
         }
 
         if (abs(Vector_point.y) > abs(max_y)){
@@ -17,6 +20,10 @@ function set_max_x_y_z(Vector_point){
             max_z = abs(Vector_point.z);
         }
 
+        if ((Vector_point.x)  < (min_x)){
+            min_x = (Vector_point.x);
+            uniforms.x_min.value = min_x;
+        }
 }
 
 function modelLoaded(ico) {
@@ -26,7 +33,7 @@ function modelLoaded(ico) {
         customColor: { type: 'c', value: [] },
         time: { type: 'f', value: [] },
         seed: { type: 'f', value: [] },
-        normals: { type: 'v3', value: [] }, 
+        normals: { type: 'v3', value: [] },
     };
 
     uniforms = {
@@ -39,13 +46,16 @@ function modelLoaded(ico) {
         effector3:  { type: "v3", value: new THREE.Vector3( 0.0, 0.0, 0.0 ) },
         song_amplitude : { type: "f", value: 0.0 },
         lightDistance: { type: "f", value: 5.0 },
+        sound_queue : { type: 'fv1', value: new Array(100).fill(0) },
+        x_max : { type: "f", value: 0.0 },
+        x_min: { type: "f", value: 5.0 },
     };
 
     var material = new THREE.ShaderMaterial( {
         uniforms:       uniforms,
         attributes:     attributes,
-        vertexShader:   document.getElementById( 'vertexshader' ).textContent,
-        fragmentShader: document.getElementById( 'fragmentshader' ).textContent,
+        vertexShader:   document.getElementById('vertexshader').textContent,
+        fragmentShader: document.getElementById('fragmentshader').textContent,
         wireframe:      false,
         shading:        THREE.FlatShading,
     });
@@ -70,13 +80,11 @@ function modelLoaded(ico) {
         var center = new THREE.Vector3().copy(v0).add(v1).add(v2);
         center.divideScalar(3);
 
-
         var tetra = new THREE.TetrahedronGeometry(1, 0);
 
         set_max_x_y_z(v0);
         set_max_x_y_z(v1);
         set_max_x_y_z(v2);
-
 
         tetra.vertices[3] = v0;
         tetra.vertices[0] = v1;

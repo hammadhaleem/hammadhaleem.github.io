@@ -18,6 +18,7 @@
 			attribute float time;
 			attribute vec3 customColor;
 
+			uniform float sound_queue[100];
 			uniform vec3 effector;
 			uniform vec3 effector1;
 			uniform vec3 effector2;
@@ -35,6 +36,13 @@
 			varying vec3 light0Color;
 			varying vec3 light1Color;
 
+			uniform float x_max;
+			uniform float x_min;
+
+			int func_mod(int x, int y) {
+			    return int(float(x)-float(y)*floor(float(x)/float(y)));
+			}
+
 			void main() {
 
 				vColor = customColor;
@@ -44,26 +52,16 @@
 				float localTime = time + globalTime;
 				float modTime = mod( localTime, 1.0 );
 				float accTime = modTime * modTime;
-
-					
+				int delta = int((  100.0 * (position.x - x_min) / ( x_max - x_min) ));
 
 				vec3 animated = position;
 
+				float s = 0.1 * (sin((globalTime+position.x) * 100.0));
+				
+				// animated  += normals * s * 0.1 ; //(sound_queue[delta]);
+				// animated  += normals * (s*0.05 + sound_queue[100 * int(( (position.x - x_min) / ( x_max - x_min) ))]/200.0);
 
-				float s = sin((localTime*50.0)+seed) *0.1 ;
-
-				if( s > 0.0 )
-				animated +=  normals * (s + position.x)/3.0;
-
-				// if (song_amplitude == 0.0)
-				// 	animated +=  normals * (s);
-				// else if (song_amplitude > 0.0)
-
-				// 	animated +=  normals * (s + (1.0/song_amplitude)/10.0);
-				// else
-				// 	animated +=  normals * (s - (1.0/song_amplitude)/10.0);
-
-
+				animated  += normals * ( sound_queue[delta] *0.1);
 
 				vec4 mvPosition = modelViewMatrix * vec4( animated, 1.0 );
 				gl_Position = projectionMatrix * mvPosition;
@@ -94,7 +92,9 @@
 
 				light1Color += vec3(1.0,1.0,1.0) * lDistance1;
 
-			}</script>
+			}
+		</script>
+		
 		<script type="x-shader/x-fragment" id="fragmentshader">
 
 			uniform vec3 color;
@@ -154,12 +154,17 @@
 			var max_y = -999900 ; 
 			var max_z = -999900 ;
 
+			var min_x = 99999 ; 
+
+			var camera_rotate = true;
+			var amplitude_stack = [];
 			var ball_color = 0x1979e7;
 			var mesh_color = 0x33b0ff;
 
 			var regular_color=0xd6efff;
 			var glow_color = 0xd6efff;
 
+			var stack_time_delta = 0.0
 			var attributes;
 			var uniforms;
 
