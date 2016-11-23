@@ -4,12 +4,17 @@
 		<title>Computer Graphics Assingments</title>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		
 		<script type="text/javascript" src="http://oos.moxiecode.com/js_webgl/build_r58/three.min.js"></script>
-		<script type="text/javascript" src="js/webaudio.js"></script>
+
+		<script type="text/javascript" src="js/lib/webaudio.js"></script>
+		<script type="text/javascript" src="js/lib/OrbitControls.js"></script>
+		<script type="text/javascript" src="js/lib/window.resize.js"></script>
+
 		<script type="text/javascript" src="js/helper.js"></script>
-		<script type="text/javascript" src="js/window.resize.js"></script>
 		<script type="text/javascript" src="js/animation.js"></script>
 		<script type="text/javascript" src="js/music.js"></script>
+
 
 		<link rel="stylesheet" href="css/back_ground.css">
 
@@ -52,13 +57,13 @@
 				float localTime = time + globalTime;
 				float modTime = mod( localTime, 1.0 );
 				float accTime = modTime * modTime;
-				int delta = 100 * int(( (position.x - x_min) / ( x_max - x_min) ));
+				int delta = int((  100.0 * (position.x - x_min) / ( x_max - x_min) ));
 
 				vec3 animated = position;
 
-				float s = 1.0+ (sin((globalTime+position.x) * 100.0));
+				float s = 0.1 * (sin((globalTime+position.x) * 100.0));
 				
-				animated  += normals * s * 0.1 ; //(sound_queue[delta]);
+				animated  += normals * ( sound_queue[delta] *0.1);
 
 				vec4 mvPosition = modelViewMatrix * vec4( animated, 1.0 );
 				gl_Position = projectionMatrix * mvPosition;
@@ -153,8 +158,8 @@
 
 			var min_x = 99999 ; 
 
-			var camera_rotate = false;
-
+			var camera_rotate = true;
+			var amplitude_stack = [];
 			var ball_color = 0x1979e7;
 			var mesh_color = 0x33b0ff;
 
