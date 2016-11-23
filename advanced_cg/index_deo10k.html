@@ -5,12 +5,14 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
 		<script type="text/javascript" src="http://oos.moxiecode.com/js_webgl/build_r58/three.min.js"></script>
-		<script type="text/javascript" src="js/webaudio.js"></script>
+
+		<script type="text/javascript" src="js/lib/webaudio.js"></script>
+		<script type="text/javascript" src="js/lib/OrbitControls.js"></script>
+		<script type="text/javascript" src="js/lib/window.resize.js"></script>
+
 		<script type="text/javascript" src="js/helper.js"></script>
-		<script type="text/javascript" src="js/window.resize.js"></script>
 		<script type="text/javascript" src="js/animation.js"></script>
 		<script type="text/javascript" src="js/music.js"></script>
-		
 
 		<script type="x-shader/x-vertex" id="vertexshader">
 
@@ -148,7 +150,6 @@
 			var far_plane = 100000;
 			var view_camera_fructum = 65;
 
-			var stack_time_delta= 0;
 			var delta;
 			var time;
 			var oldTime;

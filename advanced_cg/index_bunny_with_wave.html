@@ -52,16 +52,13 @@
 				float localTime = time + globalTime;
 				float modTime = mod( localTime, 1.0 );
 				float accTime = modTime * modTime;
-				int delta = int((  100.0 * (position.x - x_min) / ( x_max - x_min) ));
+				int delta = 100 * int(( (position.x - x_min) / ( x_max - x_min) ));
 
 				vec3 animated = position;
 
-				float s = 0.1 * (sin((globalTime+position.x) * 100.0));
+				float s = 1.0+ (sin((globalTime+position.x) * 100.0));
 				
-				// animated  += normals * s * 0.1 ; //(sound_queue[delta]);
-				// animated  += normals * (s*0.05 + sound_queue[100 * int(( (position.x - x_min) / ( x_max - x_min) ))]/200.0);
-
-				animated  += normals * ( sound_queue[delta] *0.1);
+				animated  += normals * s * 0.1 ; //(sound_queue[delta]);
 
 				vec4 mvPosition = modelViewMatrix * vec4( animated, 1.0 );
 				gl_Position = projectionMatrix * mvPosition;
@@ -156,8 +153,8 @@
 
 			var min_x = 99999 ; 
 
-			var camera_rotate = true;
-			var amplitude_stack = [];
+			var camera_rotate = false;
+
 			var ball_color = 0x1979e7;
 			var mesh_color = 0x33b0ff;
 

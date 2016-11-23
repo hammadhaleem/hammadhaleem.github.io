@@ -57,16 +57,25 @@ function init(object_to_load) {
     ball3.scale.set(0.7, 0.7, 0);
     con.add(ball3);
 
+
     try {
         // renderer
         renderer = new THREE.WebGLRenderer({
             antialias: true
         });
         renderer.setSize(window.innerWidth, window.innerHeight);
+
         THREEx.WindowResize(renderer, camera);
 
         container.appendChild(renderer.domElement);
         has_gl = true;
+
+        // var controls = new THREE.OrbitControls( camera, renderer.domElement );
+        // //         //controls.addEventListener( 'change', render ); // add this only if there is no animation loop (requestAnimationFrame)
+        // controls.enableDamping = true;
+        // controls.dampingFactor = 0.25;
+        // controls.enableZoom = false;
+        
 
     } catch (e) {
         // need webgl
@@ -74,6 +83,8 @@ function init(object_to_load) {
         document.getElementById('info').style.display = "block";
         return false;
     }
+
+
 
 }
 
