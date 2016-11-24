@@ -124,7 +124,7 @@ function render() {
                 count_amplitude+=1;
             }
     
-        // console.log(count_amplitude, uniforms.sound_queue.value)
+        // console.log(amplitude, count_amplitude, uniforms.sound_queue.value)
 
         ball.position.x = Math.sin(time/2000) * max_x * 0.5;
         ball.position.y = Math.sin(time/2000) * max_y * 0.5;

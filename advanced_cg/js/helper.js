@@ -1,3 +1,10 @@
+/*
+ Helper functions :
+  1. abs gives the absolute values of a number 
+  2. set_max_x_y_z would calculate maximum x y z of a big mesh 
+  3. Model loader would load model provided as js file into memory 
+
+*/
 
 function abs(number){
     if ( number < 0 )
@@ -153,7 +160,4 @@ function modelLoaded(ico) {
 
     var mesh = new THREE.Mesh(majorGeometry, material);
     con.add(mesh);
-
-    // console.log(max_x, max_y , max_z)
-
 }
