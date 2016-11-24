@@ -105,13 +105,26 @@ function render() {
         
         amplitude = sound.amplitude();
 
-        if(stack_time_delta >  100 ){
+        if(stack_time_delta >  150 && count_amplitude < 360 ){
                 amplitude_stack.push((10.0 * amplitude));
                 amplitude_stack.shift();
 
                 uniforms.sound_queue.value =  amplitude_stack; 
                 stack_time_delta= 0;
+                count_amplitude+=1;
         }
+
+        if (stack_time_delta >  250 && count_amplitude >= 360 ){
+                amplitude_stack =  uniforms.sound_queue.value;
+                amplitude_stack.push(0.0);
+                amplitude_stack.shift();
+                uniforms.sound_queue.value = amplitude_stack;
+                if (count_amplitude > 460)
+                    count_amplitude = 0;
+                count_amplitude+=1;
+            }
+    
+        // console.log(count_amplitude, uniforms.sound_queue.value)
 
         ball.position.x = Math.sin(time/2000) * max_x * 0.5;
         ball.position.y = Math.sin(time/2000) * max_y * 0.5;

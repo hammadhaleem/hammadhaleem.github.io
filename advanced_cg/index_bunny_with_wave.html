@@ -63,7 +63,7 @@
 
 				float s = 0.1 * (sin((globalTime+position.x) * 100.0));
 				
-				animated  += normals * ( sound_queue[delta] *0.1);
+				animated  += normals * ( sound_queue[delta] *0.2);
 
 				vec4 mvPosition = modelViewMatrix * vec4( animated, 1.0 );
 				gl_Position = projectionMatrix * mvPosition;
@@ -172,6 +172,8 @@
 			var attributes;
 			var uniforms;
 
+
+			var count_amplitude = 0;
 			init(object_to_load);
 			init_audio();
 			animate();</script>
